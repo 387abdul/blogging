@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Search Engine</title>
+  <style>
+    /* Add some basic styling for the search box and results */
+    #search-box {
+      margin: 20px;
+    }
+
+    #search-results {
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Search Box -->
+  <div id="search-box">
+    <label for="search-input">Search:</label>
+    <input type="text" id="search-input" oninput="performSearch()">
+  </div>
+
+  <!-- Search Results -->
+  <div id="search-results"></div>
+
+  <script>
+    // Sample data for demonstration purposes
+    const data = [
+      { title: 'Sample Result 1', content: 'This is the content of result 1.' },
+      { title: 'Sample Result 2', content: 'This is the content of result 2.' },
+      // Add more data as needed
+    ];
+
+    function performSearch() {
+      // Get the search query from the input field
+      const query = document.getElementById('search-input').value.toLowerCase();
+
+      // Filter the data based on the search query
+      const results = data.filter(item =>
+        item.title.toLowerCase().includes(query) || item.content.toLowerCase().includes(query)
+      );
+
+      // Display the search results
+      displayResults(results);
+    }
+
+    function displayResults(results) {
+      const resultsContainer = document.getElementById('search-results');
+
+      // Clear previous results
+      resultsContainer.innerHTML = '';
+
+      // Display each result
+      results.forEach(result => {
+        const resultElement = document.createElement('div');
+        resultElement.innerHTML = `<h3>${result.title}</h3><p>${result.content}</p>`;
+        resultsContainer.appendChild(resultElement);
+      });
+
+      // If no results, display a message
+      if (results.length === 0) {
+        resultsContainer.innerHTML = '<p>No results found.</p>';
+      }
+    }
+  </script>
+
+</body>
+</html>
